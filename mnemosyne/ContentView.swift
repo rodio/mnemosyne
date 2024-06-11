@@ -116,9 +116,9 @@ struct TwoCards: View {
     
     let lightBackGradient = LinearGradient(gradient: Gradient(colors: [Color.yellow.opacity(0.15), Color.mint.opacity(0.2)]), startPoint: .bottomTrailing, endPoint: .topLeading)
 
-    let darkFrontGradient = LinearGradient(gradient: Gradient(colors: [Color.blue.opacity(0.05), Color.orange.opacity(0.3)]), startPoint: .topLeading, endPoint: .bottomTrailing)
+    let darkFrontGradient = LinearGradient(gradient: Gradient(colors: [Color.indigo.opacity(0.08), Color.orange.opacity(0.3)]), startPoint: .topLeading, endPoint: .bottomTrailing)
     
-    let darkBackGradient = LinearGradient(gradient: Gradient(colors: [Color.black.opacity(0.2), Color.orange.opacity(0.3)]), startPoint: .bottomTrailing, endPoint: .topLeading)
+    let darkBackGradient = LinearGradient(gradient: Gradient(colors: [Color.indigo.opacity(0.4), Color.orange.opacity(0.3)]), startPoint: .bottomTrailing, endPoint: .topLeading)
     
     
     var body : some View {

@@ -2,7 +2,9 @@ import AVFoundation
 import SwiftUI
 
 struct Card: View {
-    @State var backDegree = -90.0 @State var frontDegree = 0.00001 @State var isFlipped = false
+    @State var backDegree = -90.0
+    @State var frontDegree = 0.00001
+    @State var isFlipped = false
 
     @State private var offset = CGSize.zero
     let flipDuration: CGFloat = 0.08
@@ -106,7 +108,7 @@ struct Card: View {
     var body: some View {
         ZStack {
             ZStack {
-                CardSide(degree: $frontDegree, gradient: colorScheme == .dark ? darkFrontGradient : lightFrontGradient, text: "Front")
+                CardSide(degree: $frontDegree, gradient: colorScheme == .dark ? darkGradient : lightGradient, text: "Front")
                 CardSide(degree: $backDegree, gradient: colorScheme == .dark ? darkBackGradient : lightBackGradient, text: "Back")
             }
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
@@ -118,6 +120,5 @@ struct Card: View {
             )
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(colorScheme == .light ? lightBackgroundGradient : darkBackgroundGradient)
     }
 }

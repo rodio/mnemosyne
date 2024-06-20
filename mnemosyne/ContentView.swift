@@ -7,17 +7,13 @@
 
 import SwiftUI
 
-let lightBackgroundGradient = LinearGradient(gradient: Gradient(colors: [Color.green.opacity(0.2), Color.mint.opacity(0.15)]), startPoint: .topTrailing, endPoint: .leading)
+let lightGradient = LinearGradient(gradient: Gradient(colors: [Color.yellow.opacity(0.2), Color.mint.opacity(0.2)]), startPoint: .topLeading, endPoint: .bottomTrailing)
 
-let darkBackgroundGradient = LinearGradient(gradient: Gradient(colors: [Color.indigo.opacity(0.1), Color.orange.opacity(0.2)]), startPoint: .topTrailing, endPoint: .leading)
+let lightBackGradient = LinearGradient(gradient: Gradient(colors: [Color.yellow.opacity(0.2), Color.mint.opacity(0.2)]), startPoint: .bottomTrailing, endPoint: .topLeading)
 
-let lightFrontGradient = LinearGradient(gradient: Gradient(colors: [Color.yellow.opacity(0.15), Color.mint.opacity(0.3)]), startPoint: .topLeading, endPoint: .bottomTrailing)
+let darkGradient = LinearGradient(gradient: Gradient(colors: [Color.indigo.opacity(0.3), Color.orange.opacity(0.4)]), startPoint: .bottomTrailing, endPoint: .topLeading)
 
-let lightBackGradient = LinearGradient(gradient: Gradient(colors: [Color.yellow.opacity(0.15), Color.mint.opacity(0.2)]), startPoint: .bottomTrailing, endPoint: .topLeading)
-
-let darkFrontGradient = LinearGradient(gradient: Gradient(colors: [Color.indigo.opacity(0.3), Color.orange.opacity(0.4)]), startPoint: .topLeading, endPoint: .bottomTrailing)
-
-let darkBackGradient = LinearGradient(gradient: Gradient(colors: [Color.indigo.opacity(0.3), Color.orange.opacity(0.4)]), startPoint: .bottomTrailing, endPoint: .topLeading)
+let darkBackGradient = LinearGradient(gradient: Gradient(colors: [Color.indigo.opacity(0.3), Color.orange.opacity(0.4)]), startPoint: .topLeading, endPoint: .bottomTrailing)
 
 struct ContentView: View {
     var body = DeckList()

@@ -2,3 +2,4 @@
 .nvim/**
 build/**
 buildServer.json
+playground.swift

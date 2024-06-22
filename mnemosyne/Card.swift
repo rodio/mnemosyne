@@ -112,7 +112,7 @@ struct Card: View {
                 CardSide(degree: $backDegree, gradient: colorScheme == .dark ? darkBackGradient : lightBackGradient, text: "Back")
             }
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
-            .padding(EdgeInsets(top: 60, leading: 50, bottom: 40, trailing: 50))
+            .padding(EdgeInsets(top: 40, leading: 50, bottom: 40, trailing: 50))
             .onTapGesture(perform: flipCard)
             .offset(offset)
             .gesture(

@@ -7,7 +7,7 @@ struct DeckRow: View {
         HStack {
             Text(deck.name)
                 .font(.headline)
-        }.padding(.all, 40)
+        }.padding(.all, 20)
     }
 }
 

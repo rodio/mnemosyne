@@ -11,17 +11,17 @@ struct DeckList: View {
                 } label: {
                     DeckRow(deck: deck)
                 }
-                .listRowBackground(colorScheme == .light ? lightBackgroundGradient : darkBackgroundGradient)
+                .listRowBackground(colorScheme == .light ? lightGradient : darkGradient)
             }
             .navigationTitle("Decks")
-            .listRowSpacing(20.0)
-            // .background(colorScheme == .light ? lightBackgroundGradient : darkBackgroundGradient)
+            .padding(.top, 30)
+            .listRowSpacing(30)
             .scrollContentBackground(.hidden)
-            .listStyle(.sidebar)
         }
         detail: {
             Text("Select a deck")
         }
+        .accentColor(colorScheme == .light ? .black : .white)
     }
 }
 

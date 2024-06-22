@@ -1,4 +1,4 @@
 .bundle/**
 .nvim/**
-.build/**
+build/**
 buildServer.json

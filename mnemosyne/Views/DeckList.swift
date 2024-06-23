@@ -3,12 +3,11 @@ import SwiftUI
 
 struct DeckList: View {
     @Environment(\.colorScheme) var colorScheme
-
     @Query var deckModels: [DeckModel]
 
     var body: some View {
         NavigationSplitView {
-            List(deckModels, id: \.id) { deckModel in
+            List(deckModels) { deckModel in
                 NavigationLink {
                     CardsStack(deckModel: deckModel)
                 } label: {

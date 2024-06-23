@@ -13,8 +13,8 @@ struct CardsStack: View {
 
     var body: some View {
         ZStack {
-            ForEach(Array(deckModel.cards.enumerated()), id: \.offset) { _, card in
-                Card(cardModel: card) // .zIndex(Double(idx * 100))
+            ForEach(deckModel.cards) { card in
+                Card(cardModel: card)
             }
         }
     }

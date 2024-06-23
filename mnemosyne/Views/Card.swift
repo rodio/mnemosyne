@@ -12,13 +12,27 @@ struct Card: View {
     @State var backDegree = -90.0
     @State var frontDegree = 0.0
     @State var isFlipped = false
-
     @State private var offset = CGSize.zero
     let flipDuration: CGFloat = 0.08
-
     @Environment(\.colorScheme) var colorScheme
+    public var cardModel: CardModel
 
-    func flipCard() {
+    var body: some View {
+        ZStack {
+            CardSide(degree: $frontDegree, gradient: colorScheme == .dark ? darkGradient : lightGradient, text: cardModel.frontText)
+            CardSide(degree: $backDegree, gradient: colorScheme == .dark ? darkBackGradient : lightBackGradient, text: cardModel.backText)
+        }
+        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
+        .padding(EdgeInsets(top: 40, leading: 50, bottom: 40, trailing: 50))
+        .onTapGesture(perform: flipCard)
+        .offset(offset)
+        .gesture(
+            simpleDrag
+        )
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+
+    private func flipCard() {
         if !isFlipped {
             withAnimation(.linear(duration: flipDuration)) {
                 frontDegree = 90
@@ -103,22 +117,5 @@ struct Card: View {
             }
             .rotation3DEffect(Angle(degrees: degree), axis: (x: 0, y: 1, z: 0))
         }
-    }
-
-    public var cardModel: CardModel
-
-    var body: some View {
-        ZStack {
-            CardSide(degree: $frontDegree, gradient: colorScheme == .dark ? darkGradient : lightGradient, text: cardModel.frontText)
-            CardSide(degree: $backDegree, gradient: colorScheme == .dark ? darkBackGradient : lightBackGradient, text: cardModel.backText)
-        }
-        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
-        .padding(EdgeInsets(top: 40, leading: 50, bottom: 40, trailing: 50))
-        .onTapGesture(perform: flipCard)
-        .offset(offset)
-        .gesture(
-            simpleDrag
-        )
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }

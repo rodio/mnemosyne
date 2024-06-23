@@ -14,15 +14,12 @@
 		2210F0CA2C10A62B00902C89 /* mnemosyneTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2210F0C92C10A62B00902C89 /* mnemosyneTests.swift */; };
 		2210F0D42C10A62B00902C89 /* mnemosyneUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2210F0D32C10A62B00902C89 /* mnemosyneUITests.swift */; };
 		2210F0D62C10A62B00902C89 /* mnemosyneUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2210F0D52C10A62B00902C89 /* mnemosyneUITestsLaunchTests.swift */; };
-		2226063C2C221A7600AE97E8 /* decksData.json in Resources */ = {isa = PBXBuildFile; fileRef = 2226063B2C221A7600AE97E8 /* decksData.json */; };
 		22FB51E92C272DE90064B5A5 /* CardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FB51E82C272DE90064B5A5 /* CardModel.swift */; };
 		22FB51EB2C2730210064B5A5 /* DeckModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FB51EA2C2730210064B5A5 /* DeckModel.swift */; };
 		22FB51EE2C2842990064B5A5 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FB51ED2C2842990064B5A5 /* Card.swift */; };
 		22FB51F02C2843FE0064B5A5 /* CardsStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FB51EF2C2843FE0064B5A5 /* CardsStack.swift */; };
 		4660D1C379A693A519292888 /* DeckRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4EBE58E9D975EE365C5937 /* DeckRow.swift */; };
-		944A0B653078AF363ADAB376 /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E0215E1A4311EFFD0095091 /* Deck.swift */; };
 		AA4937742BA468C90037ABCA /* DeckList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CDBC8899929EBBFF8076D34 /* DeckList.swift */; };
-		FEDA1F180633681AD496CCF9 /* ModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F619756DB214BD7B5517E3 /* ModelData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,13 +50,10 @@
 		2210F0CF2C10A62B00902C89 /* mnemosyneUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = mnemosyneUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2210F0D32C10A62B00902C89 /* mnemosyneUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mnemosyneUITests.swift; sourceTree = "<group>"; };
 		2210F0D52C10A62B00902C89 /* mnemosyneUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mnemosyneUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		2226063B2C221A7600AE97E8 /* decksData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = decksData.json; sourceTree = "<group>"; };
 		22FB51E82C272DE90064B5A5 /* CardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardModel.swift; sourceTree = "<group>"; };
 		22FB51EA2C2730210064B5A5 /* DeckModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckModel.swift; sourceTree = "<group>"; };
 		22FB51ED2C2842990064B5A5 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		22FB51EF2C2843FE0064B5A5 /* CardsStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsStack.swift; sourceTree = "<group>"; };
-		52F619756DB214BD7B5517E3 /* ModelData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ModelData.swift; sourceTree = "<group>"; };
-		5E0215E1A4311EFFD0095091 /* Deck.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
 		6CDBC8899929EBBFF8076D34 /* DeckList.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DeckList.swift; sourceTree = "<group>"; };
 		DF4EBE58E9D975EE365C5937 /* DeckRow.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DeckRow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -114,12 +108,10 @@
 			children = (
 				22FB51EC2C28428F0064B5A5 /* Views */,
 				22FB51E72C272DCF0064B5A5 /* Models */,
-				2226063B2C221A7600AE97E8 /* decksData.json */,
 				2210F0B82C10A62A00902C89 /* mnemosyneApp.swift */,
 				2210F0BA2C10A62A00902C89 /* ContentView.swift */,
 				2210F0BC2C10A62B00902C89 /* Assets.xcassets */,
 				2210F0BE2C10A62B00902C89 /* Preview Content */,
-				98B89D77ADF18C01E1BB497F /* deck */,
 			);
 			path = mnemosyne;
 			sourceTree = "<group>";
@@ -167,15 +159,6 @@
 				22FB51EF2C2843FE0064B5A5 /* CardsStack.swift */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		98B89D77ADF18C01E1BB497F /* deck */ = {
-			isa = PBXGroup;
-			children = (
-				5E0215E1A4311EFFD0095091 /* Deck.swift */,
-				52F619756DB214BD7B5517E3 /* ModelData.swift */,
-			);
-			path = deck;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -283,7 +266,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				2210F0C02C10A62B00902C89 /* Preview Assets.xcassets in Resources */,
-				2226063C2C221A7600AE97E8 /* decksData.json in Resources */,
 				2210F0BD2C10A62B00902C89 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -312,10 +294,8 @@
 				2210F0BB2C10A62A00902C89 /* ContentView.swift in Sources */,
 				22FB51EE2C2842990064B5A5 /* Card.swift in Sources */,
 				2210F0B92C10A62A00902C89 /* mnemosyneApp.swift in Sources */,
-				944A0B653078AF363ADAB376 /* Deck.swift in Sources */,
 				22FB51F02C2843FE0064B5A5 /* CardsStack.swift in Sources */,
 				22FB51EB2C2730210064B5A5 /* DeckModel.swift in Sources */,
-				FEDA1F180633681AD496CCF9 /* ModelData.swift in Sources */,
 				22FB51E92C272DE90064B5A5 /* CardModel.swift in Sources */,
 				4660D1C379A693A519292888 /* DeckRow.swift in Sources */,
 				AA4937742BA468C90037ABCA /* DeckList.swift in Sources */,

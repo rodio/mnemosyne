@@ -1,3 +1,10 @@
+//
+//  Card.swift
+//  mnemosyne
+//
+//  Created by Rodion Borovyk on 23.06.24.
+//
+
 import AVFoundation
 import SwiftData
 import SwiftUI

@@ -1,5 +1,5 @@
 //
-//  Card.swift
+//  CardView.swift
 //  mnemosyne
 //
 //  Created by Rodion Borovyk on 23.06.24.
@@ -16,6 +16,7 @@ struct CardView: View {
     let flipDuration: CGFloat = 0.08
     @Environment(\.colorScheme) var colorScheme
     public var cardModel: CardModel
+    @ObservedObject public var currentCardTracker: CurrentCardTracker
 
     var body: some View {
         ZStack {
@@ -29,7 +30,6 @@ struct CardView: View {
         .gesture(
             simpleDrag
         )
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 
     private func flipCard() {
@@ -95,6 +95,8 @@ struct CardView: View {
 
                 withAnimation(.snappy(duration: 0.9)) {
                     offset = swipeOffset
+                } completion: {
+                    currentCardTracker.nextCard()
                 }
             }
     }

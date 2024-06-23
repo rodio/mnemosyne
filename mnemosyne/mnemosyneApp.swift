@@ -24,7 +24,9 @@ struct mnemosyneApp: App {
             // This code will only run if the persistent store is empty.
             let items = [
                 DeckModel(name: "Demo Deck",
-                          cards: [CardModel(frontText: "Card 1 Front", backText: "Card 1 Back"), CardModel(frontText: "Card 2 Front", backText: "Card 2 Back")]),
+                          cards: [CardModel(frontText: "Card 1 Front", backText: "Card 1 Back"),
+                                  CardModel(frontText: "Card 2 Front", backText: "Card 2 Back"),
+                                  CardModel(frontText: "Card 3 Front", backText: "Card 3 Back")]),
             ]
 
             for item in items {

@@ -1,11 +1,11 @@
 import SwiftUI
 
 struct DeckRow: View {
-    var deck: Deck
+    var deckModel: DeckModel
 
     var body: some View {
         HStack {
-            Text(deck.name)
+            Text(deckModel.name)
                 .font(.headline)
         }.padding(.all, 20)
     }
@@ -13,8 +13,10 @@ struct DeckRow: View {
 
 #Preview {
     Group {
-        DeckRow(deck: decks[0])
-        DeckRow(deck: decks[1])
-        DeckRow(deck: decks[2])
+        DeckRow(
+            deckModel: DeckModel(
+                name: "Demo Deck",
+                cards: [CardModel(frontText: "Demo Deck, Card 1, Front", backText: "Demo Deck, Card 1, Back")]
+            ))
     }
 }

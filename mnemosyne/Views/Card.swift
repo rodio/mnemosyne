@@ -5,20 +5,18 @@
 //  Created by Rodion Borovyk on 23.06.24.
 //
 
-import AVFoundation
 import SwiftData
 import SwiftUI
 
 struct Card: View {
     @State var backDegree = -90.0
-    @State var frontDegree = 0.00001
+    @State var frontDegree = 0.0
     @State var isFlipped = false
 
     @State private var offset = CGSize.zero
     let flipDuration: CGFloat = 0.08
 
     @Environment(\.colorScheme) var colorScheme
-    @Environment(\.dismiss) var dismiss
 
     func flipCard() {
         if !isFlipped {
@@ -71,7 +69,6 @@ struct Card: View {
                 switch direction {
                 case .left:
                     swipeOffset = CGSize(width: -1500, height: 0)
-                    dismiss()
                 case .right:
                     swipeOffset = CGSize(width: 1500, height: 0)
                 case .down:
@@ -84,8 +81,6 @@ struct Card: View {
 
                 withAnimation(.snappy(duration: 0.9)) {
                     offset = swipeOffset
-                } completion: {
-                    offset = CGSize(width: 0, height: 0)
                 }
             }
     }
@@ -95,8 +90,6 @@ struct Card: View {
         public var gradient: LinearGradient
         public var text: String
 
-        let speechSynthesizer = AVSpeechSynthesizer()
-
         var body: some View {
             ZStack {
                 RoundedRectangle(cornerRadius: 30)
@@ -105,34 +98,27 @@ struct Card: View {
 
                 Text(text)
                     .font(.largeTitle)
-                    .onTapGesture {
-                        speechSynthesizer.speak(AVSpeechUtterance(string: text))
-                    }
-                    // .fontDesign(.monospaced)
+                    .onTapGesture {}
                     .fontWidth(.expanded)
             }
-            .rotation3DEffect(Angle(degrees: degree), axis: (x: 0, y: 1, z: 0.001))
+            .rotation3DEffect(Angle(degrees: degree), axis: (x: 0, y: 1, z: 0))
         }
     }
 
-    @Query var cardModels: [CardModel]
+    public var cardModel: CardModel
 
     var body: some View {
-        ForEach(cardModels) { card in
-            ZStack {
-                ZStack {
-                    CardSide(degree: $frontDegree, gradient: colorScheme == .dark ? darkGradient : lightGradient, text: card.frontText)
-                    CardSide(degree: $backDegree, gradient: colorScheme == .dark ? darkBackGradient : lightBackGradient, text: card.backText)
-                }
-                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
-                .padding(EdgeInsets(top: 40, leading: 50, bottom: 40, trailing: 50))
-                .onTapGesture(perform: flipCard)
-                .offset(offset)
-                .gesture(
-                    simpleDrag
-                )
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        ZStack {
+            CardSide(degree: $frontDegree, gradient: colorScheme == .dark ? darkGradient : lightGradient, text: cardModel.frontText)
+            CardSide(degree: $backDegree, gradient: colorScheme == .dark ? darkBackGradient : lightBackGradient, text: cardModel.backText)
         }
+        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
+        .padding(EdgeInsets(top: 40, leading: 50, bottom: 40, trailing: 50))
+        .onTapGesture(perform: flipCard)
+        .offset(offset)
+        .gesture(
+            simpleDrag
+        )
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }

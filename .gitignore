@@ -3,3 +3,4 @@
 build/**
 buildServer.json
 playground.swift
+DerivedData/**

@@ -1,15 +1,18 @@
+import SwiftData
 import SwiftUI
 
 struct DeckList: View {
     @Environment(\.colorScheme) var colorScheme
 
+    @Query var deckModels: [DeckModel]
+
     var body: some View {
         NavigationSplitView {
-            List(decks, id: \.id) { deck in
+            List(deckModels, id: \.id) { deckModel in
                 NavigationLink {
-                    Card()
+                    CardsStack(deckModel: deckModel)
                 } label: {
-                    DeckRow(deck: deck)
+                    DeckRow(deckModel: deckModel)
                 }
                 .listRowBackground(colorScheme == .light ? lightGradient : darkGradient)
             }

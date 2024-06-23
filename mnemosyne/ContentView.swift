@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-let lightGradient = LinearGradient(gradient: Gradient(colors: [Color.yellow.opacity(0.2), Color.mint.opacity(0.2)]), startPoint: .topLeading, endPoint: .bottomTrailing)
+let lightGradient = LinearGradient(gradient: Gradient(colors: [Color.yellow, Color.mint]), startPoint: .topLeading, endPoint: .bottomTrailing)
 
-let lightBackGradient = LinearGradient(gradient: Gradient(colors: [Color.yellow.opacity(0.2), Color.mint.opacity(0.2)]), startPoint: .bottomTrailing, endPoint: .topLeading)
+let lightBackGradient = LinearGradient(gradient: Gradient(colors: [Color.yellow, Color.mint]), startPoint: .bottomTrailing, endPoint: .topLeading)
 
-let darkGradient = LinearGradient(gradient: Gradient(colors: [Color.indigo.opacity(0.3), Color.orange.opacity(0.4)]), startPoint: .bottomTrailing, endPoint: .topLeading)
+let darkGradient = LinearGradient(gradient: Gradient(colors: [Color.indigo, Color.orange]), startPoint: .bottomTrailing, endPoint: .topLeading)
 
-let darkBackGradient = LinearGradient(gradient: Gradient(colors: [Color.indigo.opacity(0.3), Color.orange.opacity(0.4)]), startPoint: .topLeading, endPoint: .bottomTrailing)
+let darkBackGradient = LinearGradient(gradient: Gradient(colors: [Color.indigo, Color.orange]), startPoint: .topLeading, endPoint: .bottomTrailing)
 
 struct ContentView: View {
     var body = DeckList()

@@ -11,7 +11,9 @@ struct DeckList: View {
                 NavigationLink {
                     CardsStack(deckModel: deckModel)
                 } label: {
-                    DeckRow(deckModel: deckModel)
+                    Text(deckModel.name)
+                        .font(.headline)
+                        .padding(.all, 20)
                 }
                 .listRowBackground(colorScheme == .light ? lightGradient : darkGradient)
             }

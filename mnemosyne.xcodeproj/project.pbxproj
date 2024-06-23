@@ -18,7 +18,6 @@
 		22FB51EB2C2730210064B5A5 /* DeckModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FB51EA2C2730210064B5A5 /* DeckModel.swift */; };
 		22FB51EE2C2842990064B5A5 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FB51ED2C2842990064B5A5 /* Card.swift */; };
 		22FB51F02C2843FE0064B5A5 /* CardsStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FB51EF2C2843FE0064B5A5 /* CardsStack.swift */; };
-		4660D1C379A693A519292888 /* DeckRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4EBE58E9D975EE365C5937 /* DeckRow.swift */; };
 		AA4937742BA468C90037ABCA /* DeckList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CDBC8899929EBBFF8076D34 /* DeckList.swift */; };
 /* End PBXBuildFile section */
 
@@ -55,7 +54,6 @@
 		22FB51ED2C2842990064B5A5 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		22FB51EF2C2843FE0064B5A5 /* CardsStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsStack.swift; sourceTree = "<group>"; };
 		6CDBC8899929EBBFF8076D34 /* DeckList.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DeckList.swift; sourceTree = "<group>"; };
-		DF4EBE58E9D975EE365C5937 /* DeckRow.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DeckRow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,7 +152,6 @@
 			isa = PBXGroup;
 			children = (
 				22FB51ED2C2842990064B5A5 /* Card.swift */,
-				DF4EBE58E9D975EE365C5937 /* DeckRow.swift */,
 				6CDBC8899929EBBFF8076D34 /* DeckList.swift */,
 				22FB51EF2C2843FE0064B5A5 /* CardsStack.swift */,
 			);
@@ -297,7 +294,6 @@
 				22FB51F02C2843FE0064B5A5 /* CardsStack.swift in Sources */,
 				22FB51EB2C2730210064B5A5 /* DeckModel.swift in Sources */,
 				22FB51E92C272DE90064B5A5 /* CardModel.swift in Sources */,
-				4660D1C379A693A519292888 /* DeckRow.swift in Sources */,
 				AA4937742BA468C90037ABCA /* DeckList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

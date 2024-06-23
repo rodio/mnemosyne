@@ -16,6 +16,8 @@
 		2210F0D42C10A62B00902C89 /* mnemosyneUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2210F0D32C10A62B00902C89 /* mnemosyneUITests.swift */; };
 		2210F0D62C10A62B00902C89 /* mnemosyneUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2210F0D52C10A62B00902C89 /* mnemosyneUITestsLaunchTests.swift */; };
 		2226063C2C221A7600AE97E8 /* decksData.json in Resources */ = {isa = PBXBuildFile; fileRef = 2226063B2C221A7600AE97E8 /* decksData.json */; };
+		22FB51E92C272DE90064B5A5 /* CardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FB51E82C272DE90064B5A5 /* CardModel.swift */; };
+		22FB51EB2C2730210064B5A5 /* DeckModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FB51EA2C2730210064B5A5 /* DeckModel.swift */; };
 		4660D1C379A693A519292888 /* DeckRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4EBE58E9D975EE365C5937 /* DeckRow.swift */; };
 		944A0B653078AF363ADAB376 /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E0215E1A4311EFFD0095091 /* Deck.swift */; };
 		AA4937742BA468C90037ABCA /* DeckList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CDBC8899929EBBFF8076D34 /* DeckList.swift */; };
@@ -51,6 +53,8 @@
 		2210F0D32C10A62B00902C89 /* mnemosyneUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mnemosyneUITests.swift; sourceTree = "<group>"; };
 		2210F0D52C10A62B00902C89 /* mnemosyneUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mnemosyneUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		2226063B2C221A7600AE97E8 /* decksData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = decksData.json; sourceTree = "<group>"; };
+		22FB51E82C272DE90064B5A5 /* CardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardModel.swift; sourceTree = "<group>"; };
+		22FB51EA2C2730210064B5A5 /* DeckModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckModel.swift; sourceTree = "<group>"; };
 		52F619756DB214BD7B5517E3 /* ModelData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ModelData.swift; sourceTree = "<group>"; };
 		5E0215E1A4311EFFD0095091 /* Deck.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
 		6CDBC8899929EBBFF8076D34 /* DeckList.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DeckList.swift; sourceTree = "<group>"; };
@@ -106,6 +110,7 @@
 		2210F0B72C10A62A00902C89 /* mnemosyne */ = {
 			isa = PBXGroup;
 			children = (
+				22FB51E72C272DCF0064B5A5 /* Models */,
 				2226063B2C221A7600AE97E8 /* decksData.json */,
 				2210F0B82C10A62A00902C89 /* mnemosyneApp.swift */,
 				2210F0BA2C10A62A00902C89 /* ContentView.swift */,
@@ -140,6 +145,15 @@
 				2210F0D52C10A62B00902C89 /* mnemosyneUITestsLaunchTests.swift */,
 			);
 			path = mnemosyneUITests;
+			sourceTree = "<group>";
+		};
+		22FB51E72C272DCF0064B5A5 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				22FB51E82C272DE90064B5A5 /* CardModel.swift */,
+				22FB51EA2C2730210064B5A5 /* DeckModel.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		98B89D77ADF18C01E1BB497F /* deck */ = {
@@ -288,7 +302,9 @@
 				2210F0B92C10A62A00902C89 /* mnemosyneApp.swift in Sources */,
 				1694DCD0E34037AA5F20F321 /* Card.swift in Sources */,
 				944A0B653078AF363ADAB376 /* Deck.swift in Sources */,
+				22FB51EB2C2730210064B5A5 /* DeckModel.swift in Sources */,
 				FEDA1F180633681AD496CCF9 /* ModelData.swift in Sources */,
+				22FB51E92C272DE90064B5A5 /* CardModel.swift in Sources */,
 				4660D1C379A693A519292888 /* DeckRow.swift in Sources */,
 				AA4937742BA468C90037ABCA /* DeckList.swift in Sources */,
 			);

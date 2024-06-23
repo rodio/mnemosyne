@@ -1,4 +1,5 @@
 import AVFoundation
+import SwiftData
 import SwiftUI
 
 struct Card: View {
@@ -10,6 +11,7 @@ struct Card: View {
     let flipDuration: CGFloat = 0.08
 
     @Environment(\.colorScheme) var colorScheme
+    @Environment(\.dismiss) var dismiss
 
     func flipCard() {
         if !isFlipped {
@@ -62,6 +64,7 @@ struct Card: View {
                 switch direction {
                 case .left:
                     swipeOffset = CGSize(width: -1500, height: 0)
+                    dismiss()
                 case .right:
                     swipeOffset = CGSize(width: 1500, height: 0)
                 case .down:
@@ -105,20 +108,24 @@ struct Card: View {
         }
     }
 
+    @Query var cardModels: [CardModel]
+
     var body: some View {
-        ZStack {
+        ForEach(cardModels) { card in
             ZStack {
-                CardSide(degree: $frontDegree, gradient: colorScheme == .dark ? darkGradient : lightGradient, text: "Front")
-                CardSide(degree: $backDegree, gradient: colorScheme == .dark ? darkBackGradient : lightBackGradient, text: "Back")
+                ZStack {
+                    CardSide(degree: $frontDegree, gradient: colorScheme == .dark ? darkGradient : lightGradient, text: card.frontText)
+                    CardSide(degree: $backDegree, gradient: colorScheme == .dark ? darkBackGradient : lightBackGradient, text: card.backText)
+                }
+                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
+                .padding(EdgeInsets(top: 40, leading: 50, bottom: 40, trailing: 50))
+                .onTapGesture(perform: flipCard)
+                .offset(offset)
+                .gesture(
+                    simpleDrag
+                )
             }
-            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
-            .padding(EdgeInsets(top: 40, leading: 50, bottom: 40, trailing: 50))
-            .onTapGesture(perform: flipCard)
-            .offset(offset)
-            .gesture(
-                simpleDrag
-            )
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }

@@ -8,7 +8,7 @@
 import SwiftData
 import SwiftUI
 
-struct Card: View {
+struct CardView: View {
     @State var backDegree = -90.0
     @State var frontDegree = 0.0
     @State var isFlipped = false

@@ -8,13 +8,13 @@
 import Foundation
 import SwiftUI
 
-struct CardsStack: View {
+struct CardsStackView: View {
     public var deckModel: DeckModel
 
     var body: some View {
         ZStack {
             ForEach(deckModel.cards) { card in
-                Card(cardModel: card)
+                CardView(cardModel: card)
             }
         }
     }

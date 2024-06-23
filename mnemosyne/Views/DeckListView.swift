@@ -1,7 +1,7 @@
 import SwiftData
 import SwiftUI
 
-struct DeckList: View {
+struct DeckListView: View {
     @Environment(\.colorScheme) var colorScheme
     @Query var deckModels: [DeckModel]
 
@@ -9,7 +9,7 @@ struct DeckList: View {
         NavigationSplitView {
             List(deckModels) { deckModel in
                 NavigationLink {
-                    CardsStack(deckModel: deckModel)
+                    CardsStackView(deckModel: deckModel)
                 } label: {
                     Text(deckModel.name)
                         .font(.headline)
@@ -30,5 +30,5 @@ struct DeckList: View {
 }
 
 #Preview() {
-    DeckList()
+    DeckListView()
 }

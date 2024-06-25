@@ -96,7 +96,9 @@ struct CardView: View {
                 withAnimation(.snappy(duration: 0.9)) {
                     offset = swipeOffset
                 } completion: {
-                    currentCardTracker.nextCard()
+                    if direction != .none {
+                        currentCardTracker.removeCard(cardModel: cardModel)
+                    }
                 }
             }
     }

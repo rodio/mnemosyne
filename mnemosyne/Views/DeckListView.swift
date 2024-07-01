@@ -71,6 +71,6 @@ struct AddDeckSheet: View {
     }
 }
 
-#Preview() {
-    DeckListView()
-}
+//#Preview() {
+//    DeckListView().modelContainer(for: [DeckModel.self])
+//}

@@ -34,8 +34,8 @@ struct mnemosyneApp: App {
             }
 
             return container
-        } catch {
-            fatalError("Failed to create container")
+        } catch let error {
+            fatalError("Failed to create container \(error)")
         }
     }()
 

@@ -18,7 +18,3 @@ let darkBackGradient = LinearGradient(gradient: Gradient(colors: [Color.indigo, 
 struct ContentView: View {
     var body = DeckListView()
 }
-
-#Preview {
-    ContentView()
-}

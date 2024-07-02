@@ -70,7 +70,3 @@ struct AddDeckSheet: View {
         }
     }
 }
-
-//#Preview() {
-//    DeckListView().modelContainer(for: [DeckModel.self])
-//}

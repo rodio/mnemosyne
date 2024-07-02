@@ -22,6 +22,8 @@ struct CardView: View {
 
     var body: some View {
         ZStack {
+            CardBackground(degree: $frontDegree)
+            CardBackground(degree: $backDegree)
             CardSide(degree: $frontDegree, gradient: colorScheme == .dark ? darkGradient : lightGradient, text: cardViewModel.cardModel.frontText)
             CardSide(degree: $backDegree, gradient: colorScheme == .dark ? darkBackGradient : lightBackGradient, text: cardViewModel.cardModel.backText)
         }
@@ -123,6 +125,18 @@ struct CardView: View {
                     .fontWidth(.expanded)
             }
             .rotation3DEffect(Angle(degrees: degree), axis: (x: 0, y: 1, z: 0))
+        }
+    }
+    
+    private struct CardBackground: View {
+        @Binding public var degree: Double
+        @Environment(\.colorScheme) var colorScheme
+
+        var body: some View {
+            RoundedRectangle(cornerRadius: 30)
+                .foregroundStyle(colorScheme == .dark ? .black : .white)
+                .shadow(radius: 5)
+                .rotation3DEffect(Angle(degrees: degree), axis: (x: 0, y: 1, z: 0))
         }
     }
 }

@@ -15,13 +15,15 @@ struct CardView: View {
     @State private var offset = CGSize.zero
     let flipDuration: CGFloat = 0.08
     @Environment(\.colorScheme) var colorScheme
-    public var cardModel: CardModel
-    @ObservedObject public var currentCardTracker: CurrentCardTracker
+    
+    public var currentCardTracker: CurrentCardTracker
+    public var cardViewModel: CardViewModel
+
 
     var body: some View {
         ZStack {
-            CardSide(degree: $frontDegree, gradient: colorScheme == .dark ? darkGradient : lightGradient, text: cardModel.frontText)
-            CardSide(degree: $backDegree, gradient: colorScheme == .dark ? darkBackGradient : lightBackGradient, text: cardModel.backText)
+            CardSide(degree: $frontDegree, gradient: colorScheme == .dark ? darkGradient : lightGradient, text: cardViewModel.cardModel.frontText)
+            CardSide(degree: $backDegree, gradient: colorScheme == .dark ? darkBackGradient : lightBackGradient, text: cardViewModel.cardModel.backText)
         }
         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
         .padding(EdgeInsets(top: 40, leading: 50, bottom: 40, trailing: 50))
@@ -30,6 +32,7 @@ struct CardView: View {
         .gesture(
             simpleDrag
         )
+        .blur(radius: cardViewModel.blur)
     }
 
     private func flipCard() {
@@ -97,7 +100,7 @@ struct CardView: View {
                     offset = swipeOffset
                 } completion: {
                     if direction != .none {
-                        currentCardTracker.removeCard(cardModel: cardModel)
+                        currentCardTracker.removeCard(cardViewModel: cardViewModel)
                     }
                 }
             }

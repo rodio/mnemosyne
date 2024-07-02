@@ -9,17 +9,36 @@ import Foundation
 import Observation
 import SwiftUI
 
-@Observable
-class CurrentCardTracker: ObservableObject {
-    public var cardModels: [CardModel]
+class CurrentCardTracker {
+    public var cardViewModels: [CardViewModel] = []
 
     init(deckModel: DeckModel) {
-        cardModels = deckModel.cards
+        for (offset, cardModel) in deckModel.cards.enumerated() {
+            var blur = 10.0
+            if offset == deckModel.cards.endIndex-1 {
+                blur = 0.0
+            }
+            cardViewModels.append(CardViewModel.init(cardModel: cardModel, blur: blur))
+        }
     }
 
-    public func removeCard(cardModel: CardModel) {
-        guard let idx = cardModels.firstIndex(where: { $0.id == cardModel.id }) else { return }
-        cardModels.remove(at: idx)
+    public func removeCard(cardViewModel: CardViewModel) {
+        guard let idx = cardViewModels.firstIndex(where: { $0.cardModel.id == cardViewModel.cardModel.id }) else { return }
+        cardViewModels.remove(at: idx)
+        cardViewModels[cardViewModels.endIndex-1].blur = 0.0
+    }
+}
+
+@Observable
+class CardViewModel : Identifiable {
+    public var cardModel: CardModel
+    public var blur: CGFloat
+    public var id: UUID
+    
+    init(cardModel: CardModel, blur: CGFloat) {
+        self.cardModel = cardModel
+        self.blur = blur
+        self.id = cardModel.id
     }
 }
 
@@ -32,8 +51,8 @@ struct CardsStackView: View {
 
     var body: some View {
         ZStack {
-            ForEach(currentCardTracker.cardModels) { card in
-                CardView(cardModel: card, currentCardTracker: currentCardTracker)
+            ForEach(currentCardTracker.cardViewModels) { cardViewModel in
+                CardView(currentCardTracker: currentCardTracker, cardViewModel: cardViewModel)
             }
         }
     }

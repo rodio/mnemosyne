@@ -11,8 +11,10 @@ import SwiftUI
 
 class CurrentCardTracker {
     public var cardViewModels: [CardViewModel] = []
+    private var deckModel: DeckModel
 
     init(deckModel: DeckModel) {
+        self.deckModel = deckModel
         for (offset, cardModel) in deckModel.cards.enumerated() {
             var blur = 10.0
             if offset == deckModel.cards.endIndex-1 {
@@ -25,7 +27,9 @@ class CurrentCardTracker {
     public func removeCard(cardViewModel: CardViewModel) {
         guard let idx = cardViewModels.firstIndex(where: { $0.cardModel.id == cardViewModel.cardModel.id }) else { return }
         cardViewModels.remove(at: idx)
-        cardViewModels[cardViewModels.endIndex-1].blur = 0.0
+        if !cardViewModels.isEmpty {
+            cardViewModels[cardViewModels.endIndex-1].blur = 0.0
+        }
     }
 }
 

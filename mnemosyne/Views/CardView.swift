@@ -13,12 +13,11 @@ struct CardView: View {
     @State var frontDegree = 0.0
     @State var isFlipped = false
     @State private var offset = CGSize.zero
-    let flipDuration: CGFloat = 0.08
+    let flipDuration: CGFloat = 0.06
     @Environment(\.colorScheme) var colorScheme
     
     public var currentCardTracker: CurrentCardTracker
-    public var cardViewModel: CardViewModel
-
+    @State public var cardViewModel: CardViewModel
 
     var body: some View {
         ZStack {
@@ -28,9 +27,11 @@ struct CardView: View {
             CardSide(degree: $backDegree, gradient: colorScheme == .dark ? darkBackGradient : lightBackGradient, text: cardViewModel.cardModel.backText)
         }
         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
-        .padding(EdgeInsets(top: 40, leading: 50, bottom: 40, trailing: 50))
+        .padding(EdgeInsets(top: 40, leading: 20, bottom: 40, trailing: 20))
+        // TODO check not blurred on tap
         .onTapGesture(perform: flipCard)
         .offset(offset)
+        .rotationEffect(Angle(degrees: offset.width*0.05))
         .gesture(
             simpleDrag
         )
@@ -55,37 +56,68 @@ struct CardView: View {
         }
         isFlipped.toggle()
     }
+    
+    enum CardDirection {
+        case left
+        case right
+        case up
+        case down
+        case none
+    }
+    
+    @State var swipeDirection = CardDirection.none
+    @State var dragDirection = CardDirection.none
+    
+    private func getDragDirection(translation: CGSize) -> CardDirection {
+        if abs(translation.width) * 1.5 > abs(translation.height) {
+            if translation.width < 0 {
+                return .left
+            }
+            return .right
+        }
+        
+        if translation.height > 10 {
+            return .up
+        }
+        return .down
+    }
 
     private var simpleDrag: some Gesture {
-        enum SwipeDirection {
-            case left
-            case right
-            case up
-            case down
-            case none
-        }
-
-        var direction = SwipeDirection.none
-
         return DragGesture()
             .onChanged { gesture in
-                offset = gesture.translation
+                if dragDirection == .none {
+                    dragDirection = getDragDirection(translation: gesture.translation)
+                }
+                
+                if dragDirection == .left || dragDirection == .right {
+                    offset = CGSize(width: gesture.translation.width, height: 0)
+                } else {
+                    if dragDirection == .down || dragDirection == .up {
+                        offset = CGSize(width: 0, height: gesture.translation.height)
+                    } else {
+                        withAnimation(.snappy) {
+                            offset = CGSize.zero
+                        }
+                    }
+                }
             }
             .onEnded { gesture in
+                dragDirection = .none
+                
                 if gesture.translation.width < -180 {
-                    direction = SwipeDirection.left
+                    swipeDirection = CardDirection.left
                 } else if gesture.translation.width > 180 {
-                    direction = SwipeDirection.right
+                    swipeDirection = CardDirection.right
                 } else if gesture.translation.height > 180 {
-                    direction = SwipeDirection.up
+                    swipeDirection = CardDirection.up
                 } else if gesture.translation.height < -180 {
-                    direction = SwipeDirection.down
+                    swipeDirection = CardDirection.down
                 } else {
-                    direction = SwipeDirection.none
+                    swipeDirection = CardDirection.none
                 }
 
                 let swipeOffset: CGSize
-                switch direction {
+                switch swipeDirection {
                 case .left:
                     swipeOffset = CGSize(width: -1500, height: 0)
                 case .right:
@@ -98,10 +130,10 @@ struct CardView: View {
                     swipeOffset = CGSize(width: 0, height: 0)
                 }
 
-                withAnimation(.snappy(duration: 0.9)) {
+                withAnimation(.snappy(duration: 0.1)) {
                     offset = swipeOffset
                 } completion: {
-                    if direction != .none {
+                    if swipeDirection != .none {
                         currentCardTracker.removeCard(cardViewModel: cardViewModel)
                     }
                 }
@@ -109,6 +141,7 @@ struct CardView: View {
     }
 
     private struct CardSide: View {
+        // TODO check that the next card always starts with front or that inactive card can't be flipped
         @Binding public var degree: Double
         public var gradient: LinearGradient
         public var text: String
@@ -124,7 +157,7 @@ struct CardView: View {
                     .onTapGesture {}
                     .fontWidth(.expanded)
             }
-            .rotation3DEffect(Angle(degrees: degree), axis: (x: 0, y: 1, z: 0))
+            .rotation3DEffect(Angle(degrees: degree), axis: (x: 0, y: 1, z: 0.01))
         }
     }
     
@@ -136,7 +169,7 @@ struct CardView: View {
             RoundedRectangle(cornerRadius: 30)
                 .foregroundStyle(colorScheme == .dark ? .black : .white)
                 .shadow(radius: 5)
-                .rotation3DEffect(Angle(degrees: degree), axis: (x: 0, y: 1, z: 0))
+                .rotation3DEffect(Angle(degrees: degree), axis: (x: 0, y: 1, z: 0.01))
         }
     }
 }

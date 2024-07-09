@@ -7,6 +7,7 @@
 
 import SwiftData
 import SwiftUI
+import Observation
 
 struct CardView: View {
     @State var backDegree = -90.0
@@ -35,10 +36,14 @@ struct CardView: View {
         .gesture(
             simpleDrag
         )
-        .blur(radius: cardViewModel.blur)
+        .blur(radius: cardViewModel.isFront ? 0.0 : 10.0)
     }
 
     private func flipCard() {
+        if !cardViewModel.isFront {
+            return
+        }
+        
         if !isFlipped {
             withAnimation(.linear(duration: flipDuration)) {
                 frontDegree = 90

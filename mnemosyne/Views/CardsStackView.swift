@@ -16,11 +16,11 @@ class CurrentCardTracker {
     init(deckModel: DeckModel) {
         self.deckModel = deckModel
         for (offset, cardModel) in deckModel.cards.enumerated() {
-            var blur = 10.0
+            var isFront = false
             if offset == deckModel.cards.endIndex-1 {
-                blur = 0.0
+                isFront = true
             }
-            cardViewModels.append(CardViewModel.init(cardModel: cardModel, blur: blur))
+            cardViewModels.append(CardViewModel.init(cardModel: cardModel, isFront: isFront))
         }
     }
 
@@ -28,7 +28,7 @@ class CurrentCardTracker {
         guard let idx = cardViewModels.firstIndex(where: { $0.cardModel.id == cardViewModel.cardModel.id }) else { return }
         cardViewModels.remove(at: idx)
         if !cardViewModels.isEmpty {
-            cardViewModels[cardViewModels.endIndex-1].blur = 0.0
+            cardViewModels[cardViewModels.endIndex-1].isFront = true
         }
     }
 }
@@ -36,12 +36,12 @@ class CurrentCardTracker {
 @Observable
 class CardViewModel : Identifiable {
     public var cardModel: CardModel
-    public var blur: CGFloat
+    public var isFront: Bool
     public var id: UUID
     
-    init(cardModel: CardModel, blur: CGFloat) {
+    init(cardModel: CardModel, isFront: Bool) {
         self.cardModel = cardModel
-        self.blur = blur
+        self.isFront = isFront
         self.id = cardModel.id
     }
 }

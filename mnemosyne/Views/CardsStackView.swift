@@ -47,16 +47,66 @@ class CardViewModel : Identifiable {
 }
 
 struct CardsStackView: View {
+    @State var isAddCardPresented = false
     private var currentCardTracker: CurrentCardTracker
+    private var deckModel: DeckModel
 
     init(deckModel: DeckModel) {
         currentCardTracker = CurrentCardTracker(deckModel: deckModel)
+        self.deckModel = deckModel
     }
 
     var body: some View {
         ZStack {
             ForEach(currentCardTracker.cardViewModels) { cardViewModel in
                 CardView(currentCardTracker: currentCardTracker, cardViewModel: cardViewModel)
+                    .zIndex(cardViewModel.isFront ? 1 : 0)
+            }
+        }
+        .navigationBarTitle("", displayMode: .inline)
+        .toolbar {
+            Button(action: {
+                isAddCardPresented = true
+            }, label: {
+                Image(systemName: "plus")
+            })
+        }
+        .sheet(isPresented: $isAddCardPresented, content: {
+            AddCardSheet(deckModel: deckModel)
+        })
+    }
+}
+
+struct AddCardSheet: View {
+    @Environment(\.dismiss) private var dismiss
+    @Environment(\.modelContext) var context
+    
+    @State var frontText = ""
+    @State var backText = ""
+    
+    var deckModel: DeckModel
+
+    var body: some View {
+        NavigationStack {
+            Form {
+                TextField("Front Text", text: $frontText)
+                TextField("Back Text", text: $backText)
+            }
+            .navigationTitle("New Card")
+            .navigationBarTitleDisplayMode(.large)
+            .toolbar {
+                ToolbarItemGroup(placement: .topBarTrailing) {
+                    Button("Save") {
+                        deckModel.cards.append(CardModel(frontText: frontText, backText: backText))
+                        dismiss()
+                    }
+                }
+                
+                ToolbarItemGroup(placement: .topBarLeading) {
+                    Button("Cancel") {
+                        dismiss()
+                    }
+                }
             }
         }
     }

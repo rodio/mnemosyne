@@ -38,7 +38,6 @@ class CardViewModelManager {
         guard let idx = cardViewModels.firstIndex(where: { $0.cardModel.id == cardViewModel.cardModel.id }) else { return }
         cardViewModels.remove(at: idx)
         if !cardViewModels.isEmpty {
-            print("front is now \(cardViewModels[cardViewModels.endIndex-1].cardModel.frontText)")
             cardViewModels[cardViewModels.endIndex-1].isFront = true
         }
     }

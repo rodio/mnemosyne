@@ -4,4 +4,4 @@ build/**
 buildServer.json
 playground.swift
 DerivedData/**
-mnemosyne.xcodeproj/xcuserdata/rodion.xcuserdatad/xcdebugger/
+mnemosyne.xcodeproj/xcuserdata/rodion.xcuserdatad/xcdebugger/**

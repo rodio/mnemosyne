@@ -17,9 +17,9 @@ struct CardView: View {
     let flipDuration: CGFloat = 0.06
     @Environment(\.colorScheme) var colorScheme
     
-    public var currentCardTracker: CurrentCardTracker
+    public var cardViewModelManager: CardViewModelManager
     @State public var cardViewModel: CardViewModel
-
+    
     var body: some View {
         ZStack {
             CardBackground(degree: $frontDegree)
@@ -36,9 +36,9 @@ struct CardView: View {
         .gesture(
             simpleDrag
         )
-        .blur(radius: cardViewModel.isFront ? 0.0 : 10.0)
+        .blur(radius: cardViewModel.isFront ? 0.0 : 3.0)
     }
-
+    
     private func flipCard() {
         if !cardViewModel.isFront {
             return
@@ -86,7 +86,7 @@ struct CardView: View {
         }
         return .down
     }
-
+    
     private var simpleDrag: some Gesture {
         return DragGesture()
             .onChanged { gesture in
@@ -120,7 +120,7 @@ struct CardView: View {
                 } else {
                     swipeDirection = CardDirection.none
                 }
-
+                
                 let swipeOffset: CGSize
                 switch swipeDirection {
                 case .left:
@@ -134,29 +134,28 @@ struct CardView: View {
                 default:
                     swipeOffset = CGSize(width: 0, height: 0)
                 }
-
+                
                 withAnimation(.snappy(duration: 0.1)) {
                     offset = swipeOffset
                 } completion: {
                     if swipeDirection != .none {
-                        currentCardTracker.removeCard(cardViewModel: cardViewModel)
+                        cardViewModelManager.removeCardViewModel(cardViewModel: cardViewModel)
                     }
                 }
             }
     }
-
+    
     private struct CardSide: View {
-        // TODO check that the next card always starts with front or that inactive card can't be flipped
         @Binding public var degree: Double
         public var gradient: LinearGradient
         public var text: String
-
+        
         var body: some View {
             ZStack {
                 RoundedRectangle(cornerRadius: 30)
                     .foregroundStyle(gradient)
                     .shadow(radius: 5)
-
+                
                 Text(text)
                     .font(.largeTitle)
                     .onTapGesture {}
@@ -169,7 +168,7 @@ struct CardView: View {
     private struct CardBackground: View {
         @Binding public var degree: Double
         @Environment(\.colorScheme) var colorScheme
-
+        
         var body: some View {
             RoundedRectangle(cornerRadius: 30)
                 .foregroundStyle(colorScheme == .dark ? .black : .white)

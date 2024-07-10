@@ -12,10 +12,14 @@ import SwiftData
 class DeckModel {
     init(name: String, cards: [CardModel]) {
         self.name = name
-        self.cards = cards
+        self.cardModels = cards
     }
-
+    
     public var name: String
     @Relationship(deleteRule: .cascade)
-    public var cards: [CardModel]
+    public var cardModels: [CardModel]
+    
+    public func addCardModel(cardModel: CardModel) {
+        cardModels.append(cardModel)
+    }
 }

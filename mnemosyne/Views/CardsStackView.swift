@@ -9,58 +9,21 @@ import Foundation
 import Observation
 import SwiftUI
 
-class CurrentCardTracker {
-    public var cardViewModels: [CardViewModel] = []
-    private var deckModel: DeckModel
-
-    init(deckModel: DeckModel) {
-        self.deckModel = deckModel
-        for (offset, cardModel) in deckModel.cards.enumerated() {
-            var isFront = false
-            if offset == deckModel.cards.endIndex-1 {
-                isFront = true
-            }
-            cardViewModels.append(CardViewModel.init(cardModel: cardModel, isFront: isFront))
-        }
-    }
-
-    public func removeCard(cardViewModel: CardViewModel) {
-        guard let idx = cardViewModels.firstIndex(where: { $0.cardModel.id == cardViewModel.cardModel.id }) else { return }
-        cardViewModels.remove(at: idx)
-        if !cardViewModels.isEmpty {
-            cardViewModels[cardViewModels.endIndex-1].isFront = true
-        }
-    }
-}
-
-@Observable
-class CardViewModel : Identifiable {
-    public var cardModel: CardModel
-    public var isFront: Bool
-    public var id: UUID
-    
-    init(cardModel: CardModel, isFront: Bool) {
-        self.cardModel = cardModel
-        self.isFront = isFront
-        self.id = cardModel.id
-    }
-}
-
 struct CardsStackView: View {
     @State var isAddCardPresented = false
-    private var currentCardTracker: CurrentCardTracker
+    @State private var cardViewModelManager: CardViewModelManager
     private var deckModel: DeckModel
-
+    
     init(deckModel: DeckModel) {
-        currentCardTracker = CurrentCardTracker(deckModel: deckModel)
+        cardViewModelManager = CardViewModelManager(cardModels: deckModel.cardModels)
         self.deckModel = deckModel
     }
-
+    
     var body: some View {
         ZStack {
-            ForEach(currentCardTracker.cardViewModels) { cardViewModel in
-                CardView(currentCardTracker: currentCardTracker, cardViewModel: cardViewModel)
-                    .zIndex(cardViewModel.isFront ? 1 : 0)
+            ForEach(cardViewModelManager.cardViewModels) { cardViewModel in
+                CardView(cardViewModelManager: cardViewModelManager, cardViewModel: cardViewModel)
+                    .zIndex(cardViewModel.zIndex)
             }
         }
         .navigationBarTitle("", displayMode: .inline)
@@ -72,7 +35,7 @@ struct CardsStackView: View {
             })
         }
         .sheet(isPresented: $isAddCardPresented, content: {
-            AddCardSheet(deckModel: deckModel)
+            AddCardSheet(deckModel: deckModel, cardViewModelManager: cardViewModelManager)
         })
     }
 }
@@ -85,7 +48,8 @@ struct AddCardSheet: View {
     @State var backText = ""
     
     var deckModel: DeckModel
-
+    var cardViewModelManager: CardViewModelManager
+    
     var body: some View {
         NavigationStack {
             Form {
@@ -97,7 +61,9 @@ struct AddCardSheet: View {
             .toolbar {
                 ToolbarItemGroup(placement: .topBarTrailing) {
                     Button("Save") {
-                        deckModel.cards.append(CardModel(frontText: frontText, backText: backText))
+                        let cardModel = CardModel(frontText: frontText, backText: backText)
+                        deckModel.addCardModel(cardModel: cardModel)
+                        cardViewModelManager.addCardViewModel(cardModel: cardModel)
                         dismiss()
                     }
                 }

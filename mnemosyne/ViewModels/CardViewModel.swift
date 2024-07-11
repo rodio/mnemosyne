@@ -23,23 +23,40 @@ class CardViewModel : Identifiable {
     }
 }
 
+@Observable
 class CardViewModelManager {
     public var cardViewModels: Deque<CardViewModel> = []
     
+    private var cardModels: Deque<CardModel> = []
+    private let maxCards = 5
+    private let minCards = 2
+
     init(cardModels: [CardModel]) {
         for (offset, cardModel) in cardModels.enumerated() {
-            cardViewModels.append(CardViewModel.init(cardModel: cardModel, isFront: false, zIndex: Double(offset)))
+            if cardViewModels.count < maxCards {
+                cardViewModels.append(CardViewModel.init(cardModel: cardModel, isFront: false, zIndex: Double(offset)))
+                continue
+            }
+            
+            self.cardModels.append(cardModel)
         }
         if !cardViewModels.isEmpty {
-            cardViewModels[cardViewModels.endIndex-1].isFront = true
+            cardViewModels.last!.isFront = true
         }
     }
     
     public func removeCardViewModel() {
         let _ = cardViewModels.popLast();
-        guard let newLast = cardViewModels.popLast() else { return }
-        newLast.isFront = true
-        cardViewModels.append(newLast)
+        if cardViewModels.last != nil {
+            cardViewModels.last!.isFront = true
+        }
+        
+        if cardViewModels.count <= minCards {
+            while cardViewModels.count < maxCards && cardModels.count != 0 {
+                let zIdx = cardViewModels.first?.zIndex ?? 0.0
+                cardViewModels.prepend(CardViewModel(cardModel: cardModels.popLast()!, isFront: false, zIndex: zIdx))
+            }
+        }
     }
     
     public func addCardViewModel(cardModel: CardModel) {

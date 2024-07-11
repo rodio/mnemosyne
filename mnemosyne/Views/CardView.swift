@@ -139,7 +139,7 @@ struct CardView: View {
                     offset = swipeOffset
                 } completion: {
                     if swipeDirection != .none {
-                        cardViewModelManager.removeCardViewModel(cardViewModel: cardViewModel)
+                        cardViewModelManager.removeCardViewModel()
                     }
                 }
             }

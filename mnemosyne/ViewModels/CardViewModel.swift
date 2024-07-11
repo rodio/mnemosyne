@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import DequeModule
 
 @Observable
 class CardViewModel : Identifiable {
@@ -23,7 +24,7 @@ class CardViewModel : Identifiable {
 }
 
 class CardViewModelManager {
-    public var cardViewModels: [CardViewModel] = []
+    public var cardViewModels: Deque<CardViewModel> = []
     
     init(cardModels: [CardModel]) {
         for (offset, cardModel) in cardModels.enumerated() {
@@ -34,12 +35,11 @@ class CardViewModelManager {
         }
     }
     
-    public func removeCardViewModel(cardViewModel: CardViewModel) {
-        guard let idx = cardViewModels.firstIndex(where: { $0.cardModel.id == cardViewModel.cardModel.id }) else { return }
-        cardViewModels.remove(at: idx)
-        if !cardViewModels.isEmpty {
-            cardViewModels[cardViewModels.endIndex-1].isFront = true
-        }
+    public func removeCardViewModel() {
+        let _ = cardViewModels.popLast();
+        guard let newLast = cardViewModels.popLast() else { return }
+        newLast.isFront = true
+        cardViewModels.append(newLast)
     }
     
     public func addCardViewModel(cardModel: CardModel) {

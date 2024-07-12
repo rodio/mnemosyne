@@ -66,4 +66,16 @@ final class mnemosyneTests: XCTestCase {
         manager.removeCardViewModel()
         assert(manager.cardViewModels.count == 5)
     }
+    
+    func testRemovesCorrectly() throws {
+        let cardModels = createCardModels(n: 5)
+        let manager = CardViewModelManager(cardModels: cardModels)
+        assert(manager.cardViewModels.last!.isFront)
+        let toBeRemovedId = manager.cardViewModels.last!.id
+        
+        manager.removeCardViewModel()
+        assert(!manager.cardViewModels.contains(where: {vm in vm.id == toBeRemovedId}))
+        assert(manager.cardViewModels.last!.id != toBeRemovedId)
+        assert(manager.cardViewModels.last!.isFront)
+    }
 }

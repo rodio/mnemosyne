@@ -78,4 +78,14 @@ final class mnemosyneTests: XCTestCase {
         assert(manager.cardViewModels.last!.id != toBeRemovedId)
         assert(manager.cardViewModels.last!.isFront)
     }
+
+    func testAddWhenMaxReached() throws {
+        let cardModels = createCardModels(n: 5)
+        let manager = CardViewModelManager(cardModels: cardModels)
+        let toBeUnloadedId = manager.cardViewModels.first!.id
+        let cardModel = CardModel(frontText: "6", backText: "6")
+        manager.addCardViewModel(cardModel: cardModel)
+        assert(manager.cardViewModels.count == 5)
+        assert(!manager.cardViewModels.contains(where: {vm in vm.id == toBeUnloadedId}))
+    }
 }

@@ -65,5 +65,9 @@ class CardViewModelManager {
         }
         
         cardViewModels.append(CardViewModel.init(cardModel: cardModel, isFront: true, zIndex: Double(cardViewModels.endIndex+1)))
+        
+        if cardViewModels.count > maxCards {
+            self.cardModels.append(cardViewModels.popFirst()!.cardModel);
+        }
     }
 }

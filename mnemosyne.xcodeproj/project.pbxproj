@@ -16,6 +16,7 @@
 		2210F0D62C10A62B00902C89 /* mnemosyneUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2210F0D52C10A62B00902C89 /* mnemosyneUITestsLaunchTests.swift */; };
 		2239DC082C3F12B100E56C77 /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2239DC072C3F12B100E56C77 /* CardViewModel.swift */; };
 		2239DC0B2C40378300E56C77 /* DequeModule in Frameworks */ = {isa = PBXBuildFile; productRef = 2239DC0A2C40378300E56C77 /* DequeModule */; };
+		2239DC0D2C41951000E56C77 /* HeapModule in Frameworks */ = {isa = PBXBuildFile; productRef = 2239DC0C2C41951000E56C77 /* HeapModule */; };
 		22FB51E92C272DE90064B5A5 /* CardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FB51E82C272DE90064B5A5 /* CardModel.swift */; };
 		22FB51EB2C2730210064B5A5 /* DeckModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FB51EA2C2730210064B5A5 /* DeckModel.swift */; };
 		22FB51EE2C2842990064B5A5 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FB51ED2C2842990064B5A5 /* CardView.swift */; };
@@ -64,6 +65,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2239DC0D2C41951000E56C77 /* HeapModule in Frameworks */,
 				2239DC0B2C40378300E56C77 /* DequeModule in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -189,6 +191,7 @@
 			name = mnemosyne;
 			packageProductDependencies = (
 				2239DC0A2C40378300E56C77 /* DequeModule */,
+				2239DC0C2C41951000E56C77 /* HeapModule */,
 			);
 			productName = mnemosyne;
 			productReference = 2210F0B52C10A62A00902C89 /* mnemosyne.app */;
@@ -657,6 +660,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2239DC092C40378300E56C77 /* XCRemoteSwiftPackageReference "swift-collections" */;
 			productName = DequeModule;
+		};
+		2239DC0C2C41951000E56C77 /* HeapModule */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2239DC092C40378300E56C77 /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = HeapModule;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

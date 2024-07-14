@@ -7,6 +7,7 @@
 
 import Foundation
 import DequeModule
+import HeapModule
 
 @Observable
 class CardViewModel : Identifiable {
@@ -26,48 +27,72 @@ class CardViewModel : Identifiable {
 @Observable
 class CardViewModelManager {
     public var cardViewModels: Deque<CardViewModel> = []
-    
-    private var cardModels: Deque<CardModel> = []
+    public var offloadedCardViewModels: [CardViewModel] = []
+
+    private var cardModels: Heap<CardModel>
     private let maxCards = 5
     private let minCards = 2
 
     init(cardModels: [CardModel]) {
-        for (offset, cardModel) in cardModels.enumerated() {
-            if cardViewModels.count < maxCards {
-                cardViewModels.append(CardViewModel.init(cardModel: cardModel, isFront: false, zIndex: Double(offset)))
-                continue
+        self.cardModels = Heap(cardModels)
+        reload()
+    }
+    
+    public func reload() {
+        defer {
+            for cardViewModel in cardViewModels {
+                cardViewModel.isFront = false
             }
-            
-            self.cardModels.append(cardModel)
+            if !cardViewModels.isEmpty {
+                cardViewModels.last!.isFront = true
+            }
         }
-        if !cardViewModels.isEmpty {
-            cardViewModels.last!.isFront = true
+        
+        if cardViewModels.count <= maxCards && cardViewModels.count > minCards {
+            return
+        }
+        
+        if cardViewModels.count > maxCards {
+            print("offloading")
+            while cardViewModels.count > maxCards {
+                self.offloadedCardViewModels.append(cardViewModels.popFirst()!)
+            }
+            return
+        }
+        
+        // cardViewModels.count > minCards:
+        for cardViewModel in offloadedCardViewModels {
+            cardViewModels.prepend(cardViewModel)
+            if cardViewModels.count >= maxCards {
+                break
+            }
+        }
+        
+        while cardViewModels.count < maxCards {
+            if cardModels.count == 0 {
+                return
+            }
+            if cardModels.min!.nextShow > Date.now {
+                return
+            }
+            let zIdx = cardViewModels.first?.zIndex ?? 0.0
+            cardViewModels.prepend(CardViewModel(cardModel: cardModels.popMin()!, isFront: false, zIndex: zIdx))
         }
     }
     
     public func removeCardViewModel() {
-        let _ = cardViewModels.popLast();
+        let removed = cardViewModels.popLast();
+        if removed != nil {
+            removed!.cardModel.nextShow = Date.now.addingTimeInterval(30)
+        }
         if cardViewModels.last != nil {
             cardViewModels.last!.isFront = true
         }
-        
-        if cardViewModels.count <= minCards {
-            while cardViewModels.count < maxCards && cardModels.count != 0 {
-                let zIdx = cardViewModels.first?.zIndex ?? 0.0
-                cardViewModels.prepend(CardViewModel(cardModel: cardModels.popLast()!, isFront: false, zIndex: zIdx))
-            }
-        }
+        reload()
     }
     
     public func addCardViewModel(cardModel: CardModel) {
-        for cardViewModel in cardViewModels {
-            cardViewModel.isFront = false
-        }
-        
         cardViewModels.append(CardViewModel.init(cardModel: cardModel, isFront: true, zIndex: Double(cardViewModels.endIndex+1)))
-        
-        if cardViewModels.count > maxCards {
-            self.cardModels.append(cardViewModels.popFirst()!.cardModel);
-        }
+        reload()
     }
 }

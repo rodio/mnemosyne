@@ -37,6 +37,9 @@ struct CardsStackView: View {
         .sheet(isPresented: $isAddCardPresented, content: {
             AddCardSheet(deckModel: deckModel, cardViewModelManager: cardViewModelManager)
         })
+        .onAppear(perform: {
+            cardViewModelManager.reload()
+        })
     }
 }
 

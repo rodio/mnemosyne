@@ -46,7 +46,6 @@ struct DeckView: View {
 
 struct AddCardSheet: View {
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.modelContext) var context
     
     @State var frontText = ""
     @State var backText = ""

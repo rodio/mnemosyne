@@ -14,13 +14,15 @@ import SwiftData
 class DeckController {
     var cardViewInfos: Deque<CardViewInfo> = []
     var offloadedViewDatas: [CardViewInfo] = []
+    var modelContext : ModelContext
 
     private var cardModels: Heap<CardModel>
     private let maxCards = 5
     private let minCards = 2
 
-    init(cardModels: [CardModel]) {
+    init(cardModels: [CardModel], modelContext: ModelContext) {
         self.cardModels = Heap(cardModels)
+        self.modelContext = modelContext
         reload()
     }
     
@@ -80,5 +82,9 @@ class DeckController {
     public func addCardViewInfo(cardModel: CardModel) {
         cardViewInfos.append(CardViewInfo.init(cardModel: cardModel, isFront: true, zIndex: Double(cardViewInfos.endIndex+1)))
         reload()
+    }
+    
+    func addCard(frontText: String, backText: String) {
+        
     }
 }

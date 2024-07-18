@@ -1,5 +1,5 @@
 //
-//  DeckController.swift
+//  CardViewInfoController.swift
 //  mnemosyne
 //
 //  Created by Rodion Borovyk on 10.07.24.
@@ -11,7 +11,7 @@ import HeapModule
 import SwiftData
 
 @Observable
-class DeckController {
+class CardViewInfoController {
     var cardViewInfos: Deque<CardViewInfo> = []
     var offloadedViewInfos: [CardViewInfo] = []
 

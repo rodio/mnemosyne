@@ -17,7 +17,7 @@ struct CardView: View {
     let flipDuration: CGFloat = 0.06
     @Environment(\.colorScheme) var colorScheme
     
-    public var deckController: DeckController
+    public var cardViewInfoController: CardViewInfoController
     @State public var cardViewInfo: CardViewInfo
     
     var body: some View {
@@ -139,7 +139,7 @@ struct CardView: View {
                     offset = swipeOffset
                 } completion: {
                     if swipeDirection != .none {
-                        deckController.removeCardViewInfo()
+                        cardViewInfoController.removeCardViewInfo()
                     }
                 }
             }

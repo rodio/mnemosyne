@@ -11,19 +11,18 @@ import SwiftUI
 
 struct DeckView: View {
     @State var isAddCardPresented = false
-    @State private var deckController: DeckController
-    @Environment(\.modelContext) var modelContext
+    @State private var cardViewInfoController: CardViewInfoController
     private var deckModel: DeckModel
     
     init(deckModel: DeckModel) {
         self.deckModel = deckModel
-        deckController = DeckController(cardModels: deckModel.cardModels)
+        cardViewInfoController = CardViewInfoController(cardModels: deckModel.cardModels)
     }
     
     var body: some View {
         ZStack {
-            ForEach(deckController.cardViewInfos) { cardViewInfo in
-                CardView(deckController: deckController, cardViewInfo: cardViewInfo)
+            ForEach(cardViewInfoController.cardViewInfos) { cardViewInfo in
+                CardView(cardViewInfoController: cardViewInfoController, cardViewInfo: cardViewInfo)
                     .zIndex(cardViewInfo.zIndex)
             }
         }
@@ -36,10 +35,10 @@ struct DeckView: View {
             })
         }
         .sheet(isPresented: $isAddCardPresented, content: {
-            AddCardSheet(deckModel: deckModel, deckController: deckController)
+            AddCardSheet(deckModel: deckModel, cardViewInfoController: cardViewInfoController)
         })
         .onAppear(perform: {
-            deckController.reload()
+            cardViewInfoController.reload()
         })
     }
 }
@@ -51,7 +50,7 @@ struct AddCardSheet: View {
     @State var backText = ""
     
     var deckModel: DeckModel
-    var deckController: DeckController
+    var cardViewInfoController: CardViewInfoController
     
     var body: some View {
         NavigationStack {
@@ -66,7 +65,7 @@ struct AddCardSheet: View {
                     Button("Save") {
                         let cardModel = CardModel(frontText: frontText, backText: backText)
                         deckModel.addCardModel(cardModel: cardModel)
-                        deckController.addCardViewInfo(cardModel: cardModel)
+                        cardViewInfoController.addCardViewInfo(cardModel: cardModel)
                         dismiss()
                     }
                 }

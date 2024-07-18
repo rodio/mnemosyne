@@ -20,72 +20,72 @@ final class mnemosyneTests: XCTestCase {
     
     func testWorksWithNoCards() throws {
         let cardModels : [CardModel] = []
-        let manager = CardViewInfoController(cardModels: cardModels)
-        assert(manager.cardViewModels.count == 0)
-        manager.removeCardViewModel()
-        assert(manager.cardViewModels.count == 0)
+        let controller = CardViewInfoController(cardModels: cardModels)
+        assert(controller.cardViewInfos.count == 0)
+        controller.removeCardViewInfo()
+        assert(controller.cardViewInfos.count == 0)
     }
     
     func testWorksWithOneCard() throws {
         let cardModels = createCardModels(n: 1)
-        let manager = CardViewInfoController(cardModels: cardModels)
-        assert(manager.cardViewModels.count == 1)
-        manager.removeCardViewModel()
-        assert(manager.cardViewModels.count == 0)
+        let controller = CardViewInfoController(cardModels: cardModels)
+        assert(controller.cardViewInfos.count == 1)
+        controller.removeCardViewInfo()
+        assert(controller.cardViewInfos.count == 0)
     }
     
     func testWorksWithNoMoreCards() throws {
         let cardModels = createCardModels(n: 5)
-        let manager = CardViewInfoController(cardModels: cardModels)
-        assert(manager.cardViewModels.count == 5)
-        manager.removeCardViewModel()
-        manager.removeCardViewModel()
-        manager.removeCardViewModel()
-        assert(manager.cardViewModels.count == 2)
-        manager.removeCardViewModel()
-        assert(manager.cardViewModels.count == 1)
-        manager.removeCardViewModel()
-        assert(manager.cardViewModels.count == 0)
+        let controller = CardViewInfoController(cardModels: cardModels)
+        assert(controller.cardViewInfos.count == 5)
+        controller.removeCardViewInfo()
+        controller.removeCardViewInfo()
+        controller.removeCardViewInfo()
+        assert(controller.cardViewInfos.count == 2)
+        controller.removeCardViewInfo()
+        assert(controller.cardViewInfos.count == 1)
+        controller.removeCardViewInfo()
+        assert(controller.cardViewInfos.count == 0)
     }
 
     func testCreatesOnlyFive() throws {
         let cardModels = createCardModels(n: 6)
-        let manager = CardViewInfoController(cardModels: cardModels)
-        assert(manager.cardViewModels.count == 5)
+        let controller = CardViewInfoController(cardModels: cardModels)
+        assert(controller.cardViewInfos.count == 5)
     }
     
     func testAddsWhenTwoLeft() throws {
         let cardModels = createCardModels(n: 10)
-        let manager = CardViewInfoController(cardModels: cardModels)
-        assert(manager.cardViewModels.count == 5)
+        let controller = CardViewInfoController(cardModels: cardModels)
+        assert(controller.cardViewInfos.count == 5)
         
-        manager.removeCardViewModel()
-        assert(manager.cardViewModels.count == 4)
-        manager.removeCardViewModel()
-        assert(manager.cardViewModels.count == 3)
-        manager.removeCardViewModel()
-        assert(manager.cardViewModels.count == 5)
+        controller.removeCardViewInfo()
+        assert(controller.cardViewInfos.count == 4)
+        controller.removeCardViewInfo()
+        assert(controller.cardViewInfos.count == 3)
+        controller.removeCardViewInfo()
+        assert(controller.cardViewInfos.count == 5)
     }
     
     func testRemovesCorrectly() throws {
         let cardModels = createCardModels(n: 5)
-        let manager = CardViewInfoController(cardModels: cardModels)
-        assert(manager.cardViewModels.last!.isFront)
-        let toBeRemovedId = manager.cardViewModels.last!.id
+        let controller = CardViewInfoController(cardModels: cardModels)
+        assert(controller.cardViewInfos.last!.isFront)
+        let toBeRemovedId = controller.cardViewInfos.last!.id
         
-        manager.removeCardViewModel()
-        assert(!manager.cardViewModels.contains(where: {vm in vm.id == toBeRemovedId}))
-        assert(manager.cardViewModels.last!.id != toBeRemovedId)
-        assert(manager.cardViewModels.last!.isFront)
+        controller.removeCardViewInfo()
+        assert(!controller.cardViewInfos.contains(where: {vm in vm.id == toBeRemovedId}))
+        assert(controller.cardViewInfos.last!.id != toBeRemovedId)
+        assert(controller.cardViewInfos.last!.isFront)
     }
 
     func testAddWhenMaxReached() throws {
         let cardModels = createCardModels(n: 5)
-        let manager = CardViewInfoController(cardModels: cardModels)
-        let toBeUnloadedId = manager.cardViewModels.first!.id
+        let controller = CardViewInfoController(cardModels: cardModels)
+        let toBeUnloadedId = controller.cardViewInfos.first!.id
         let cardModel = CardModel(frontText: "6", backText: "6")
-        manager.addCardViewModel(cardModel: cardModel)
-        assert(manager.cardViewModels.count == 5)
-        assert(!manager.cardViewModels.contains(where: {vm in vm.id == toBeUnloadedId}))
+        controller.addCardViewInfo(cardModel: cardModel)
+        assert(controller.cardViewInfos.count == 5)
+        assert(!controller.cardViewInfos.contains(where: {vm in vm.id == toBeUnloadedId}))
     }
 }

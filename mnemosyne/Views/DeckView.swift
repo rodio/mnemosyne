@@ -16,8 +16,8 @@ struct DeckView: View {
     private var deckModel: DeckModel
     
     init(deckModel: DeckModel) {
-        deckController = DeckController(cardModels: deckModel.cardModels)
         self.deckModel = deckModel
+        deckController = DeckController(cardModels: deckModel.cardModels)
     }
     
     var body: some View {

@@ -13,16 +13,14 @@ import SwiftData
 @Observable
 class DeckController {
     var cardViewInfos: Deque<CardViewInfo> = []
-    var offloadedViewDatas: [CardViewInfo] = []
-    var modelContext : ModelContext
+    var offloadedViewInfos: [CardViewInfo] = []
 
     private var cardModels: Heap<CardModel>
     private let maxCards = 5
     private let minCards = 2
 
-    init(cardModels: [CardModel], modelContext: ModelContext) {
+    init(cardModels: [CardModel]) {
         self.cardModels = Heap(cardModels)
-        self.modelContext = modelContext
         reload()
     }
     
@@ -43,13 +41,13 @@ class DeckController {
         if cardViewInfos.count > maxCards {
             print("offloading")
             while cardViewInfos.count > maxCards {
-                self.offloadedViewDatas.append(cardViewInfos.popFirst()!)
+                self.offloadedViewInfos.append(cardViewInfos.popFirst()!)
             }
             return
         }
         
         // cardViewInfos.count > minCards:
-        for cardViewInfo in offloadedViewDatas {
+        for cardViewInfo in offloadedViewInfos {
             cardViewInfos.prepend(cardViewInfo)
             if cardViewInfos.count >= maxCards {
                 break

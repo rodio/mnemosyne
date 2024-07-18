@@ -10,7 +10,7 @@ struct DeckListView: View {
         NavigationSplitView {
             List(deckModels) { deckModel in
                 NavigationLink {
-                    CardsStackView(deckModel: deckModel)
+                    DeckView(deckModel: deckModel)
                 } label: {
                     Text(deckModel.name)
                         .font(.headline)

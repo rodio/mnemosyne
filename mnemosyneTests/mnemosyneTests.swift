@@ -20,7 +20,7 @@ final class mnemosyneTests: XCTestCase {
     
     func testWorksWithNoCards() throws {
         let cardModels : [CardModel] = []
-        let manager = CardViewModelManager(cardModels: cardModels)
+        let manager = DeckController(cardModels: cardModels)
         assert(manager.cardViewModels.count == 0)
         manager.removeCardViewModel()
         assert(manager.cardViewModels.count == 0)
@@ -28,7 +28,7 @@ final class mnemosyneTests: XCTestCase {
     
     func testWorksWithOneCard() throws {
         let cardModels = createCardModels(n: 1)
-        let manager = CardViewModelManager(cardModels: cardModels)
+        let manager = DeckController(cardModels: cardModels)
         assert(manager.cardViewModels.count == 1)
         manager.removeCardViewModel()
         assert(manager.cardViewModels.count == 0)
@@ -36,7 +36,7 @@ final class mnemosyneTests: XCTestCase {
     
     func testWorksWithNoMoreCards() throws {
         let cardModels = createCardModels(n: 5)
-        let manager = CardViewModelManager(cardModels: cardModels)
+        let manager = DeckController(cardModels: cardModels)
         assert(manager.cardViewModels.count == 5)
         manager.removeCardViewModel()
         manager.removeCardViewModel()
@@ -50,13 +50,13 @@ final class mnemosyneTests: XCTestCase {
 
     func testCreatesOnlyFive() throws {
         let cardModels = createCardModels(n: 6)
-        let manager = CardViewModelManager(cardModels: cardModels)
+        let manager = DeckController(cardModels: cardModels)
         assert(manager.cardViewModels.count == 5)
     }
     
     func testAddsWhenTwoLeft() throws {
         let cardModels = createCardModels(n: 10)
-        let manager = CardViewModelManager(cardModels: cardModels)
+        let manager = DeckController(cardModels: cardModels)
         assert(manager.cardViewModels.count == 5)
         
         manager.removeCardViewModel()
@@ -69,7 +69,7 @@ final class mnemosyneTests: XCTestCase {
     
     func testRemovesCorrectly() throws {
         let cardModels = createCardModels(n: 5)
-        let manager = CardViewModelManager(cardModels: cardModels)
+        let manager = DeckController(cardModels: cardModels)
         assert(manager.cardViewModels.last!.isFront)
         let toBeRemovedId = manager.cardViewModels.last!.id
         
@@ -81,7 +81,7 @@ final class mnemosyneTests: XCTestCase {
 
     func testAddWhenMaxReached() throws {
         let cardModels = createCardModels(n: 5)
-        let manager = CardViewModelManager(cardModels: cardModels)
+        let manager = DeckController(cardModels: cardModels)
         let toBeUnloadedId = manager.cardViewModels.first!.id
         let cardModel = CardModel(frontText: "6", backText: "6")
         manager.addCardViewModel(cardModel: cardModel)

@@ -9,21 +9,22 @@ import Foundation
 import Observation
 import SwiftUI
 
-struct CardsStackView: View {
+struct DeckView: View {
     @State var isAddCardPresented = false
-    @State private var cardViewModelManager: CardViewModelManager
+    @State private var deckController: DeckController
+    @Environment(\.modelContext) var modelContext
     private var deckModel: DeckModel
     
     init(deckModel: DeckModel) {
-        cardViewModelManager = CardViewModelManager(cardModels: deckModel.cardModels)
+        deckController = DeckController(cardModels: deckModel.cardModels)
         self.deckModel = deckModel
     }
     
     var body: some View {
         ZStack {
-            ForEach(cardViewModelManager.cardViewModels) { cardViewModel in
-                CardView(cardViewModelManager: cardViewModelManager, cardViewModel: cardViewModel)
-                    .zIndex(cardViewModel.zIndex)
+            ForEach(deckController.cardViewInfos) { cardViewInfo in
+                CardView(deckController: deckController, cardViewInfo: cardViewInfo)
+                    .zIndex(cardViewInfo.zIndex)
             }
         }
         .navigationBarTitle("", displayMode: .inline)
@@ -35,10 +36,10 @@ struct CardsStackView: View {
             })
         }
         .sheet(isPresented: $isAddCardPresented, content: {
-            AddCardSheet(deckModel: deckModel, cardViewModelManager: cardViewModelManager)
+            AddCardSheet(deckModel: deckModel, deckController: deckController)
         })
         .onAppear(perform: {
-            cardViewModelManager.reload()
+            deckController.reload()
         })
     }
 }
@@ -51,7 +52,7 @@ struct AddCardSheet: View {
     @State var backText = ""
     
     var deckModel: DeckModel
-    var cardViewModelManager: CardViewModelManager
+    var deckController: DeckController
     
     var body: some View {
         NavigationStack {
@@ -66,7 +67,7 @@ struct AddCardSheet: View {
                     Button("Save") {
                         let cardModel = CardModel(frontText: frontText, backText: backText)
                         deckModel.addCardModel(cardModel: cardModel)
-                        cardViewModelManager.addCardViewModel(cardModel: cardModel)
+                        deckController.addCardViewInfo(cardModel: cardModel)
                         dismiss()
                     }
                 }

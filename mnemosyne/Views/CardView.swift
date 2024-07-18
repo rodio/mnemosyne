@@ -17,15 +17,15 @@ struct CardView: View {
     let flipDuration: CGFloat = 0.06
     @Environment(\.colorScheme) var colorScheme
     
-    public var cardViewModelManager: CardViewModelManager
-    @State public var cardViewModel: CardViewModel
+    public var deckController: DeckController
+    @State public var cardViewInfo: CardViewInfo
     
     var body: some View {
         ZStack {
             CardBackground(degree: $frontDegree)
             CardBackground(degree: $backDegree)
-            CardSide(degree: $frontDegree, gradient: colorScheme == .dark ? darkGradient : lightGradient, text: cardViewModel.cardModel.frontText)
-            CardSide(degree: $backDegree, gradient: colorScheme == .dark ? darkBackGradient : lightBackGradient, text: cardViewModel.cardModel.backText)
+            CardSide(degree: $frontDegree, gradient: colorScheme == .dark ? darkGradient : lightGradient, text: cardViewInfo.cardModel.frontText)
+            CardSide(degree: $backDegree, gradient: colorScheme == .dark ? darkBackGradient : lightBackGradient, text: cardViewInfo.cardModel.backText)
         }
         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
         .padding(EdgeInsets(top: 40, leading: 20, bottom: 40, trailing: 20))
@@ -36,11 +36,11 @@ struct CardView: View {
         .gesture(
             simpleDrag
         )
-        .blur(radius: cardViewModel.isFront ? 0.0 : 3.0)
+        .blur(radius: cardViewInfo.isFront ? 0.0 : 3.0)
     }
     
     private func flipCard() {
-        if !cardViewModel.isFront {
+        if !cardViewInfo.isFront {
             return
         }
         
@@ -139,7 +139,7 @@ struct CardView: View {
                     offset = swipeOffset
                 } completion: {
                     if swipeDirection != .none {
-                        cardViewModelManager.removeCardViewModel()
+                        deckController.removeCardViewInfo()
                     }
                 }
             }
